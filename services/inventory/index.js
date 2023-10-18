@@ -1,3 +1,4 @@
+
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const products = require('./products.json');
@@ -19,6 +20,12 @@ server.addService(inventoryProto.InventoryService.service, {
         callback(null, {
             products: products,
         });
+    },
+    SearchProductByID: (payload, callback) => {
+        callback(
+            null,
+            products.find((product) => product.id == payload.request.id)
+        );
     },
 });
 
